@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Come hasta donde aguante | Mariscos Frescos con Sabor Único</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-red': '#9B2C2C', // Rojo oscuro
+                        'secondary-gold': '#D69E2E', // Dorado
+                        'text-dark': '#2D3748', // Gris oscuro
+                        'bg-light': '#F7FAFC', // Blanco hueso
+                        'header-bg': 'rgba(26, 32, 44, 0.8)', // Fondo de Header (oscuro transparente)
+                    },
+                    fontFamily: {
+                        'title': ['Playfair Display', 'serif'],
+                        'body': ['Lato', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'gold-lg': '0 10px 15px -3px rgba(214, 158, 46, 0.5), 0 4px 6px -2px rgba(214, 158, 46, 0.05)',
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Estilos generales y fuentes */
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text-dark);
+            background-color: var(--color-bg-light);
+        }
+        h1, h2, h3 {
+            font-family: var(--font-title);
+        }
+        
+        /* 4. MENÚ PRINCIPAL - Header sticky con blur */
+        .header-bg-blur {
+            background-color: transparent;
+            transition: background-color 0.3s ease-in-out;
+            backdrop-filter: blur(0px); /* Inicialmente sin blur */
+        }
+        .header-scrolled {
+            background-color: var(--color-header-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 3. GUÍA DE ESTILO - Botones CTA Dorado (Gradiente) */
+        .cta-button {
+            background-image: linear-gradient(to right, #D69E2E, #e5b85c); /* Dorado a Dorado más claro */
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-gold-lg);
+        }
+        
+        /* 3. GUÍA DE ESTILO - Fondo con Textura (simulación con degradado ligero) */
+        .texture-bg {
+            background-image: radial-gradient(circle at 100% 100%, #ffffff 0%, #F7FAFC 50%, #F0F4F8 100%);
+        }
+
+        /* Swiper custom arrows */
+        .swiper-button-next, .swiper-button-prev {
+            color: #D69E2E !important;
+        }
+
+        /* Ocultar elementos AOS en slides no activos (ajuste para Swiper) */
+        .swiper-slide:not(.swiper-slide-active) [data-aos] {
+            opacity: 0 !important;
+        }
+    </style>
+</head>
+
+<body class="bg-bg-light font-body text-text-dark">
+
+    <header id="header" class="fixed top-0 left-0 w-full z-50 header-bg-blur transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#inicio" class="text-2xl font-bold text-white font-title tracking-wider">
+                <i class="fas fa-shrimp text-secondary-gold mr-2"></i>Come hasta donde aguante
+            </a>
+
+            <nav class="hidden lg:flex space-x-8">
+                <a href="#inicio" class="text-white hover:text-secondary-gold transition duration-300 nav-link">Inicio</a>
+                <a href="#quienes-somos" class="text-white hover:text-secondary-gold transition duration-300 nav-link">Quiénes Somos</a>
+                <a href="#servicios" class="text-white hover:text-secondary-gold transition duration-300 nav-link">Servicios</a>
+                <a href="#galeria" class="text-white hover:text-secondary-gold transition duration-300 nav-link">Galería</a>
+                <a href="#contacto" class="text-white hover:text-secondary-gold transition duration-300 nav-link">Contacto</a>
+            </nav>
+
+            <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <nav id="mobile-menu" class="lg:hidden fixed top-0 left-0 w-full h-screen bg-header-bg backdrop-blur-md transform -translate-y-full transition-transform duration-300 z-40 p-6">
+            <div class="flex justify-end">
+                <button id="close-menu-button" class="text-white focus:outline-none">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <ul class="flex flex-col space-y-4 mt-10">
+                <li><a href="#inicio" class="text-white text-3xl hover:text-secondary-gold transition duration-300 block py-2 mobile-nav-link">Inicio</a></li>
+                <li><a href="#quienes-somos" class="text-white text-3xl hover:text-secondary-gold transition duration-300 block py-2 mobile-nav-link">Quiénes Somos</a></li>
+                <li><a href="#servicios" class="text-white text-3xl hover:text-secondary-gold transition duration-300 block py-2 mobile-nav-link">Servicios</a></li>
+                <li><a href="#galeria" class="text-white text-3xl hover:text-secondary-gold transition duration-300 block py-2 mobile-nav-link">Galería</a></li>
+                <li><a href="#contacto" class="text-white text-3xl hover:text-secondary-gold transition duration-300 block py-2 mobile-nav-link">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="relative h-screen">
+            <div class="swiper mySwiper h-full">
+                <div class="swiper-wrapper">
+                    
+                    <div class="swiper-slide relative bg-cover bg-center" style="background-image: url('img/s1.jpg');">
+                        <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center p-6">
+                            <h1 class="text-5xl md:text-7xl font-title font-bold text-white mb-4" data-aos="fade-up" data-aos-delay="100">La Experiencia Marina que Esperabas</h1>
+                            <p class="text-xl md:text-2xl text-white mb-8" data-aos="fade-up" data-aos-delay="300">Mariscos frescos, tradición y el mejor ambiente.</p>
+                            <a href="#menu-destacado" class="cta-button text-white font-bold py-3 px-8 rounded-full shadow-lg text-lg" data-aos="zoom-in" data-aos-delay="500">
+                                Ver Menú <i class="fas fa-book-open ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="swiper-slide relative bg-cover bg-center" style="background-image: url('img/s2.jpg');">
+                        <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center p-6">
+                            <h1 class="text-5xl md:text-7xl font-title font-bold text-white mb-4" data-aos="fade-up" data-aos-delay="100">Sabor que te Transporta al Mar</h1>
+                            <p class="text-xl md:text-2xl text-white mb-8" data-aos="fade-up" data-aos-delay="300">Platillos auténticos, elaborados con pasión.</p>
+                            <a href="#menu-destacado" class="cta-button text-white font-bold py-3 px-8 rounded-full shadow-lg text-lg" data-aos="zoom-in" data-aos-delay="500">
+                                Ver Menú <i class="fas fa-book-open ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="swiper-slide relative bg-cover bg-center" style="background-image: url('img/s3.jpg');">
+                        <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center p-6">
+                            <h1 class="text-5xl md:text-7xl font-title font-bold text-white mb-4" data-aos="fade-up" data-aos-delay="100">¡Come hasta donde aguante!</h1>
+                            <p class="text-xl md:text-2xl text-white mb-8" data-aos="fade-up" data-aos-delay="300">El mejor buffet de mariscos de la ciudad.</p>
+                            <a href="#menu-destacado" class="cta-button text-white font-bold py-3 px-8 rounded-full shadow-lg text-lg" data-aos="zoom-in" data-aos-delay="500">
+                                Ver Menú <i class="fas fa-book-open ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+
+        <section id="quienes-somos" class="py-20 lg:py-32 bg-bg-light texture-bg">
+            <div class="container mx-auto px-6">
+                <div class="lg:flex lg:items-center lg:space-x-12">
+                    <div class="lg:w-1/2 mb-10 lg:mb-0" data-aos="fade-right">
+                        <img src="https://images.pexels.com/photos/4559409/pexels-photo-4559409.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Chef de Come hasta donde aguante" class="rounded-xl shadow-2xl w-full h-auto object-cover max-h-96 lg:max-h-full" loading="lazy">
+                    </div>
+
+                    <div class="lg:w-1/2" data-aos="fade-left">
+                        <h2 class="text-4xl font-title font-bold text-primary-red mb-4 border-b-2 border-secondary-gold pb-2 inline-block">Nuestra Historia</h2>
+                        <p class="text-lg text-text-dark mb-4 leading-relaxed">
+                            Nacimos de un sueño en la costa de Ensenada, donde la frescura del Pacífico se encuentra con la sazón de la abuela. **"Come hasta donde aguante"** no es solo un nombre, es una promesa. Una promesa de abundancia, calidad y tradición.
+                        </p>
+                        <p class="text-lg text-text-dark leading-relaxed">
+                            Desde 1995, nuestro fundador, el Chef Ricardo, ha recorrido el país perfeccionando recetas que honran el mar. Cada platillo es un homenaje a México, utilizando solo ingredientes de la más alta calidad y pescados del día. Te invitamos a ser parte de esta tradición.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="py-20 lg:py-32 bg-primary-red">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-title font-bold text-white mb-12 text-center" data-aos="fade-up">Pilares de Nuestra Marca</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02]" data-aos="zoom-in" data-aos-delay="100">
+                        <i class="fas fa-hand-holding-heart text-5xl text-secondary-gold mb-4"></i>
+                        <h3 class="text-2xl font-title font-bold text-primary-red mb-3">Misión</h3>
+                        <p class="text-text-dark">Ofrecer la experiencia gastronómica de mariscos más auténtica y memorable, garantizando frescura y un servicio que exceda las expectativas.</p>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02]" data-aos="zoom-in" data-aos-delay="300">
+                        <i class="fas fa-globe-americas text-5xl text-secondary-gold mb-4"></i>
+                        <h3 class="text-2xl font-title font-bold text-primary-red mb-3">Visión</h3>
+                        <p class="text-text-dark">Ser la cadena de restaurantes de mariscos líder a nivel nacional, reconocida por su calidad inigualable, innovación y compromiso social.</p>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02]" data-aos="zoom-in" data-aos-delay="500">
+                        <i class="fas fa-star text-5xl text-secondary-gold mb-4"></i>
+                        <h3 class="text-2xl font-title font-bold text-primary-red mb-3">Valores</h3>
+                        <p class="text-text-dark">Frescura, Tradición, Honestidad y Abundancia son los cimientos sobre los que construimos la confianza de nuestros clientes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicios" class="py-20 lg:py-32 bg-bg-light texture-bg">
+            <div class="container mx-auto px-6">
+                <div id="menu-destacado">
+                    <h2 class="text-4xl font-title font-bold text-primary-red mb-4 text-center" data-aos="fade-up">Menú Destacado del Chef</h2>
+                    <p class="text-xl text-text-dark mb-12 text-center" data-aos="fade-up" data-aos-delay="200">Nuestros platillos más populares y aclamados.</p>
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden relative group" data-aos="fade-up">
+                            <img src="https://images.pexels.com/photos/10313837/pexels-photo-10313837.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Camarones al Ajillo" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                            <div class="p-5">
+                                <span class="absolute top-0 right-0 bg-secondary-gold text-white text-xs font-bold py-1 px-3 rounded-bl-lg uppercase tracking-wider">
+                                    <i class="fas fa-hat-chef mr-1"></i> Especial del Chef
+                                </span>
+                                <h3 class="text-2xl font-title font-bold text-primary-red mb-2">Camarones al Ajillo</h3>
+                                <p class="text-sm text-gray-600 mb-3">Camarones jumbo salteados en ajo y mantequilla, con un toque de chile de árbol.</p>
+                                <span class="text-xl font-bold text-secondary-gold">$249 MXN</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
+                            <img src="https://images.pexels.com/photos/17596041/pexels-photo-17596041/free-photo-of-cena-comida-cocinar-preparar.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Ceviche de Pescado" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                            <div class="p-5">
+                                <h3 class="text-2xl font-title font-bold text-primary-red mb-2">Ceviche Clásico</h3>
+                                <p class="text-sm text-gray-600 mb-3">Trozos de pescado blanco marinado en limón, cilantro, cebolla y un toque de aguacate.</p>
+                                <span class="text-xl font-bold text-secondary-gold">$180 MXN</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden relative group" data-aos="fade-up" data-aos-delay="200">
+                            <img src="https://images.pexels.com/photos/1199990/pexels-photo-1199990.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Tacos de Pescado" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                            <div class="p-5">
+                                <span class="absolute top-0 right-0 bg-secondary-gold text-white text-xs font-bold py-1 px-3 rounded-bl-lg uppercase tracking-wider">
+                                    <i class="fas fa-fire mr-1"></i> Favorito
+                                </span>
+                                <h3 class="text-2xl font-title font-bold text-primary-red mb-2">Tacos Ensenada</h3>
+                                <p class="text-sm text-gray-600 mb-3">Tres tacos de pescado rebozado, repollo y nuestra salsa cremosa secreta.</p>
+                                <span class="text-xl font-bold text-secondary-gold">$150 MXN</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden group" data-aos="fade-up" data-aos-delay="300">
+                            <img src="https://images.pexels.com/photos/3434645/pexels-photo-3434645.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sopa de Mariscos" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                            <div class="p-5">
+                                <h3 class="text-2xl font-title font-bold text-primary-red mb-2">Sopa Marinera</h3>
+                                <p class="text-sm text-gray-600 mb-3">Caldo robusto con pescado, camarones, pulpo y verduras. Perfecto para el frío.</p>
+                                <span class="text-xl font-bold text-secondary-gold">$210 MXN</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden group" data-aos="fade-up" data-aos-delay="400">
+                            <img src="https://images.pexels.com/photos/11200475/pexels-photo-11200475.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Pulpo a la Gallega" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                            <div class="p-5">
+                                <h3 class="text-2xl font-title font-bold text-primary-red mb-2">Pulpo a la Gallega</h3>
+                                <p class="text-sm text-gray-600 mb-3">Tiernos trozos de pulpo a la parrilla, pimentón de la Vera y aceite de oliva.</p>
+                                <span class="text-xl font-bold text-secondary-gold">$290 MXN</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden group" data-aos="fade-up" data-aos-delay="500">
+                            <img src="https://images.pexels.com/photos/2082269/pexels-photo-2082269.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Ostiones Frescos" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                            <div class="p-5">
+                                <h3 class="text-2xl font-title font-bold text-primary-red mb-2">Ostiones Frescos</h3>
+                                <p class="text-sm text-gray-600 mb-3">Media docena de ostiones frescos, servidos con limón y salsas especiales.</p>
+                                <span class="text-xl font-bold text-secondary-gold">$199 MXN</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-20 pt-10 border-t border-gray-300">
+                    <h2 class="text-4xl font-title font-bold text-primary-red mb-12 text-center" data-aos="fade-up">Nuestros Servicios</h2>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        
+                        <div class="bg-white p-6 rounded-xl shadow-lg text-center border-t-4 border-secondary-gold" data-aos="flip-left" data-aos-delay="100">
+                            <i class="fas fa-utensils text-5xl text-primary-red mb-4"></i>
+                            <h3 class="text-2xl font-title font-bold text-text-dark mb-3">Comedor y Ambiente</h3>
+                            <p class="text-gray-600">Disfruta de nuestro ambiente relajado y elegante, perfecto para familias y cenas de negocios.</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-xl shadow-lg text-center border-t-4 border-secondary-gold" data-aos="flip-left" data-aos-delay="300">
+                            <i class="fas fa-box-open text-5xl text-primary-red mb-4"></i>
+                            <h3 class="text-2xl font-title font-bold text-text-dark mb-3">Take Out y Delivery</h3>
+                            <p class="text-gray-600">Lleva el sabor del mar a casa. Servicio de pedidos para llevar y entregas a domicilio rápido.</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-xl shadow-lg text-center border-t-4 border-secondary-gold" data-aos="flip-left" data-aos-delay="500">
+                            <i class="fas fa-champagne-glasses text-5xl text-primary-red mb-4"></i>
+                            <h3 class="text-2xl font-title font-bold text-text-dark mb-3">Eventos Privados</h3>
+                            <p class="text-gray-600">Reserva nuestro espacio para tus celebraciones, con menús personalizados de mariscos y servicio de catering.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="galeria" class="py-20 lg:py-32 bg-primary-red">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-title font-bold text-white mb-4 text-center" data-aos="fade-up">Galería de Sabores</h2>
+                <p class="text-xl text-white mb-10 text-center" data-aos="fade-up" data-aos-delay="100">Un vistazo a nuestro arte culinario y nuestro cálido ambiente.</p>
+
+                <div class="flex justify-center space-x-4 mb-10" data-aos="fade-up" data-aos-delay="200">
+                    <button data-filter="all" class="filter-btn bg-secondary-gold text-white font-bold py-2 px-6 rounded-full hover:opacity-80 transition duration-300">Todo</button>
+                    <button data-filter="platillos" class="filter-btn bg-white text-primary-red font-bold py-2 px-6 rounded-full hover:bg-gray-200 transition duration-300">Platillos</button>
+                    <button data-filter="ambiente" class="filter-btn bg-white text-primary-red font-bold py-2 px-6 rounded-full hover:bg-gray-200 transition duration-300">Ambiente</button>
+                </div>
+
+                <div id="gallery-grid" class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    
+                    <div class="gallery-item platillos" data-aos="zoom-in">
+                        <img src="https://images.pexels.com/photos/10313837/pexels-photo-10313837.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Platillo de Camarones" class="w-full h-64 object-cover rounded-lg shadow-xl cursor-pointer hover:shadow-secondary-gold transition duration-300" loading="lazy">
+                    </div>
+                    <div class="gallery-item ambiente" data-aos="zoom-in" data-aos-delay="100">
+                        <img src="https://images.pexels.com/photos/3371900/pexels-photo-3371900.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Interior del Restaurante" class="w-full h-64 object-cover rounded-lg shadow-xl cursor-pointer hover:shadow-secondary-gold transition duration-300" loading="lazy">
+                    </div>
+                    <div class="gallery-item platillos" data-aos="zoom-in" data-aos-delay="200">
+                        <img src="https://images.pexels.com/photos/1199990/pexels-photo-1199990.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Tacos de Pescado" class="w-full h-64 object-cover rounded-lg shadow-xl cursor-pointer hover:shadow-secondary-gold transition duration-300" loading="lazy">
+                    </div>
+                    <div class="gallery-item platillos" data-aos="zoom-in" data-aos-delay="300">
+                        <img src="https://images.pexels.com/photos/17596041/pexels-photo-17596041/free-photo-of-cena-comida-cocinar-preparar.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Ceviche en tostada" class="w-full h-64 object-cover rounded-lg shadow-xl cursor-pointer hover:shadow-secondary-gold transition duration-300" loading="lazy">
+                    </div>
+                    <div class="gallery-item ambiente" data-aos="zoom-in" data-aos-delay="400">
+                        <img src="https://images.pexels.com/photos/3476313/pexels-photo-3476313.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mesa de Comensales" class="w-full h-64 object-cover rounded-lg shadow-xl cursor-pointer hover:shadow-secondary-gold transition duration-300" loading="lazy">
+                    </div>
+                    <div class="gallery-item platillos" data-aos="zoom-in" data-aos-delay="500">
+                        <img src="https://images.pexels.com/photos/3434645/pexels-photo-3434645.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Coctel de Mariscos" class="w-full h-64 object-cover rounded-lg shadow-xl cursor-pointer hover:shadow-secondary-gold transition duration-300" loading="lazy">
+                    </div>
+                    <div class="gallery-item ambiente" data-aos="zoom-in" data-aos-delay="600">
+                        <img src="https://images.pexels.com/photos/3476307/pexels-photo-3476307.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Barra de Restaurante" class="w-full h-64 object-cover rounded-lg shadow-xl cursor-pointer hover:shadow-secondary-gold transition duration-300" loading="lazy">
+                    </div>
+                    <div class="gallery-item platillos" data-aos="zoom-in" data-aos-delay="700">
+                        <img src="https://images.pexels.com/photos/11200475/pexels-photo-11200475.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Pulpo a la Parrilla" class="w-full h-64 object-cover rounded-lg shadow-xl cursor-pointer hover:shadow-secondary-gold transition duration-300" loading="lazy">
+                    </div>
+                    <div class="gallery-item ambiente" data-aos="zoom-in" data-aos-delay="800">
+                        <img src="https://images.pexels.com/photos/4559409/pexels-photo-4559409.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Ambiente de Cocina" class="w-full h-64 object-cover rounded-lg shadow-xl cursor-pointer hover:shadow-secondary-gold transition duration-300" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 lg:py-32 bg-bg-light texture-bg">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-title font-bold text-primary-red mb-12 text-center" data-aos="fade-up">Lo que Dicen Nuestros Clientes</h2>
+                
+                <div class="swiper mySwiperTestimonials max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                    <div class="swiper-wrapper">
+                        
+                        <div class="swiper-slide p-8 bg-white rounded-xl shadow-2xl">
+                            <div class="flex items-center mb-4">
+                                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Cliente 1" class="w-16 h-16 rounded-full object-cover mr-4 border-2 border-secondary-gold">
+                                <div>
+                                    <p class="font-bold text-xl text-text-dark">Carlos M.</p>
+                                    <div class="text-secondary-gold text-sm">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="italic text-gray-700">"El mejor ceviche que he probado en años. La frescura de los ingredientes es inigualable y el servicio siempre es de primera. ¡Un 10/10!"</p>
+                        </div>
+
+                        <div class="swiper-slide p-8 bg-white rounded-xl shadow-2xl">
+                            <div class="flex items-center mb-4">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Cliente 2" class="w-16 h-16 rounded-full object-cover mr-4 border-2 border-secondary-gold">
+                                <div>
+                                    <p class="font-bold text-xl text-text-dark">Andrea G.</p>
+                                    <div class="text-secondary-gold text-sm">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="italic text-gray-700">"El ambiente es perfecto para una cena familiar. El pulpo a la gallega es mi favorito. Siempre salimos satisfechos y con ganas de volver."</p>
+                        </div>
+                        
+                        <div class="swiper-slide p-8 bg-white rounded-xl shadow-2xl">
+                            <div class="flex items-center mb-4">
+                                <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="Cliente 3" class="w-16 h-16 rounded-full object-cover mr-4 border-2 border-secondary-gold">
+                                <div>
+                                    <p class="font-bold text-xl text-text-dark">Javier L.</p>
+                                    <div class="text-secondary-gold text-sm">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="italic text-gray-700">"¡El nombre lo dice todo! Tienen una variedad increíble y sus platillos especiales son una joya. El mejor restaurante de mariscos de la zona."</p>
+                        </div>
+
+                    </div>
+                    <div class="swiper-pagination mt-8"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="py-20 lg:py-32 bg-primary-red">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-title font-bold text-white mb-12 text-center" data-aos="fade-up">¡Reserva o Pregunta!</h2>
+                
+                <div class="lg:flex lg:space-x-12">
+                    
+                    <div class="lg:w-1/2 bg-white p-8 rounded-xl shadow-2xl mb-12 lg:mb-0" data-aos="fade-right">
+                        <form id="contact-form" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-text-dark">Nombre Completo</label>
+                                <input type="text" id="name" name="name" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-3 focus:ring-secondary-gold focus:border-secondary-gold">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-text-dark">Correo Electrónico</label>
+                                <input type="email" id="email" name="email" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-3 focus:ring-secondary-gold focus:border-secondary-gold">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-text-dark">Mensaje / Solicitud</label>
+                                <textarea id="message" name="message" rows="4" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-3 focus:ring-secondary-gold focus:border-secondary-gold"></textarea>
+                            </div>
+                            <button type="submit" class="cta-button w-full text-white font-bold py-3 px-4 rounded-md text-lg">
+                                Enviar Mensaje <i class="fas fa-paper-plane ml-2"></i>
+                            </button>
+                            <p id="form-message" class="mt-4 text-center text-sm font-semibold"></p>
+                        </form>
+                    </div>
+
+                    <div class="lg:w-1/2 space-y-8" data-aos="fade-left">
+                        <div class="bg-white p-6 rounded-xl shadow-2xl text-text-dark">
+                            <h3 class="text-2xl font-title font-bold text-primary-red mb-4">Información Clave</h3>
+                            <ul class="space-y-3 text-lg">
+                                <li><i class="fas fa-map-marker-alt text-secondary-gold w-6"></i> **Dirección:** Av. Océano Pacífico #123, Col. Marina, MX.</li>
+                                <li><i class="fas fa-clock text-secondary-gold w-6"></i> **Horario:** Mar - Dom: 12:00 PM - 10:00 PM</li>
+                                <li><i class="fas fa-phone text-secondary-gold w-6"></i> **Teléfono:** (55) 5555 1234</li>
+                                <li><i class="fas fa-envelope text-secondary-gold w-6"></i> **Correo:** contacto@comehasta.mx</li>
+                            </ul>
+                            <div class="flex space-x-4 mt-6">
+                                <a href="#" class="text-2xl text-white bg-secondary-gold p-2 rounded-full hover:opacity-80 transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="text-2xl text-white bg-secondary-gold p-2 rounded-full hover:opacity-80 transition duration-300"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="text-2xl text-white bg-secondary-gold p-2 rounded-full hover:opacity-80 transition duration-300"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="rounded-xl shadow-2xl overflow-hidden">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30099.998491873323!2d-99.16782555!3d19.43260775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fffa1829e06b%3A0xa9d970e5a62f88f1!2sCentro%2C%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX%2C%20M%C3%A9xico!5e0!3m2!1ses-419!2sni!4v1677271870123!5m2!1ses-419!2sni"
+                                width="100%" 
+                                height="300" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                            ></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="bg-text-dark text-white py-12">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-3 gap-8 border-b border-gray-700 pb-8 mb-8">
+                    
+                    <div>
+                        <h4 class="text-xl font-title font-bold text-secondary-gold mb-4">Sobre "Come hasta donde aguante"</h4>
+                        <p class="text-gray-400 text-sm">
+                            El destino #1 para los amantes de los mariscos en México. Compromiso total con la frescura, el sabor y la auténtica experiencia culinaria mexicana.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xl font-title font-bold text-secondary-gold mb-4">Enlaces Rápidos</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#inicio" class="text-gray-400 hover:text-white transition duration-300 nav-link">Inicio</a></li>
+                            <li><a href="#quienes-somos" class="text-gray-400 hover:text-white transition duration-300 nav-link">Nuestra Historia</a></li>
+                            <li><a href="#menu-destacado" class="text-gray-400 hover:text-white transition duration-300 nav-link">Ver Menú</a></li>
+                            <li><a href="#contacto" class="text-gray-400 hover:text-white transition duration-300 nav-link">Reservaciones</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xl font-title font-bold text-secondary-gold mb-4">Síguenos</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-secondary-gold text-2xl transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-secondary-gold text-2xl transition duration-300"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-secondary-gold text-2xl transition duration-300"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-secondary-gold text-2xl transition duration-300"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center text-sm text-gray-500">
+                    © 2025 Come hasta donde aguante. Todos los derechos reservados.
+                </div>
+            </div>
+        </footer>
+
+    </main>
+    
+    <a href="https://wa.me/525555551234?text=Me%20interesa%20reservar%20una%20mesa" target="_blank" class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition duration-300 z-50 transform hover:scale-105" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp text-3xl"></i>
+    </a>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Inicialización de AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+
+        // Inicialización de Swiper (Hero Principal)
+        const swiperHero = new Swiper(".mySwiper", {
+            loop: true,
+            effect: "fade",
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            // Corrección de AOS en Swiper: Asegura que las animaciones se activen en el slide correcto
+            on: {
+                init: function () {
+                    AOS.refreshHard(); 
+                },
+                slideChangeTransitionEnd: function () {
+                    AOS.refresh();
+                },
+            }
+        });
+
+        // Inicialización de Swiper (Testimonios)
+        const swiperTestimonials = new Swiper(".mySwiperTestimonials", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+                delay: 7000,
+                disableOnInteraction: true,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            breakpoints: {
+                768: { // MD size
+                    slidesPerView: 2,
+                    spaceBetween: 40,
+                },
+            }
+        });
+
+        // Lógica de Menú Móvil
+        const mobileMenuBtn = document.getElementById('mobile-menu-button');
+        const closeMenuBtn = document.getElementById('close-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('-translate-y-full');
+            mobileMenu.classList.add('translate-y-0');
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-y-0');
+            mobileMenu.classList.add('-translate-y-full');
+        });
+
+        // Cerrar menú móvil al hacer click en un enlace
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                // Pequeño delay para que el scroll suave se complete antes de cerrar
+                setTimeout(() => {
+                    mobileMenu.classList.remove('translate-y-0');
+                    mobileMenu.classList.add('-translate-y-full');
+                }, 300);
+            });
+        });
+
+        // Header Sticky y Scroll Effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+        
+        // Lógica de Filtrado de Galería
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remover clase activa de todos los botones
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-secondary-gold', 'text-white');
+                    b.classList.add('bg-white', 'text-primary-red');
+                });
+
+                // Agregar clase activa al botón presionado
+                btn.classList.add('bg-secondary-gold', 'text-white');
+                btn.classList.remove('bg-white', 'text-primary-red');
+
+                const filter = btn.getAttribute('data-filter');
+
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.classList.contains(filter)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Lógica de Validación de Formulario de Contacto (Simple)
+        const contactForm = document.getElementById('contact-form');
+        const formMessage = document.getElementById('form-message');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            if (name && email && message) {
+                // Simulación de envío exitoso
+                formMessage.textContent = '✅ Mensaje enviado con éxito. ¡Pronto te contactaremos!';
+                formMessage.classList.remove('text-primary-red');
+                formMessage.classList.add('text-green-600');
+                contactForm.reset();
+            } else {
+                formMessage.textContent = '❌ Por favor, completa todos los campos requeridos.';
+                formMessage.classList.remove('text-green-600');
+                formMessage.classList.add('text-primary-red');
+            }
+        });
+
+    </script>
+
+</body>
+</html>
